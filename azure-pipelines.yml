@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# trigger:
+# - main
+
+# pool:
+#   vmImage: ubuntu-latest
+
+# steps:
+# - script: echo Hello, world!
+#   displayName: 'Run a one-line script'
+
+# - script: |
+#     echo Add other tasks to build, test, and deploy your project.
+#     echo See https://aka.ms/yaml
+#   displayName: 'Run a multi-line script'
+
+
+pool:
+  name: eks-agent
+
+stages:
+# Refering the pipeline template, input parameter that are not specified will be added with defaults
+- template: ./pipeline_templates/main_template.yaml
+  parameters:
+    serviceConnectionName: dd-azureDevOps-Federation-SC
+    awsRegion: us-east-1
+    awsEKSClusterName: azure
+    projectName: ddesaiProj
