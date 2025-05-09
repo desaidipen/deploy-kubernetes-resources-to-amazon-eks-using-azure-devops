@@ -30,4 +30,4 @@ stages:
     # serviceConnectionName: aws-oidc-federation
     awsRegion: us-east-1
     awsEKSClusterName: azure
-    projectName: ddesaiProj
+    projectName: azure-devops-test
