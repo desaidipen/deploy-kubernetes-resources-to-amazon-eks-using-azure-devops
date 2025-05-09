@@ -26,8 +26,8 @@ stages:
 # Refering the pipeline template, input parameter that are not specified will be added with defaults
 - template: ./pipeline_templates/main_template.yaml
   parameters:
-    # serviceConnectionName: dd-azureDevOps-Federation-SC
-    serviceConnectionName: aws-oidc-federation
+    serviceConnectionName: dd-azureDevOps-Federation-SC
+    # serviceConnectionName: aws-oidc-federation
     awsRegion: us-east-1
     awsEKSClusterName: azure
     projectName: ddesaiProj
