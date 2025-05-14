@@ -95,6 +95,18 @@ jobs:
               # 5. Check kubeconfig content (make sure to mask any sensitive data in logs)
               kubectl config view
 
+              # After aws eks update-kubeconfig command, add:
+              export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+              export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
+              export AWS_SESSION_TOKEN=$(aws configure get aws_session_token)
+              
+              # Also set the default region and output format
+              export AWS_DEFAULT_REGION=us-east-1
+              export AWS_DEFAULT_OUTPUT=json
+              
+              # Test kubectl
+              kubectl get nodes
+
               # 6. Try a basic kubectl command to test connectivity
               kubectl get nodes
               
