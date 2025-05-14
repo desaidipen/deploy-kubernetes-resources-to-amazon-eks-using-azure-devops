@@ -28,5 +28,5 @@ stages:
   parameters:
     serviceConnectionName: aws-sc
     awsRegion: us-east-1
-    awsEKSClusterName: apgCluster-ADO
+    awsEKSClusterName: apgTest-Cluster
     projectName: webapp
