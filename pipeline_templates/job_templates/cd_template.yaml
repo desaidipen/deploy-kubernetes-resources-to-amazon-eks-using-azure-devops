@@ -76,6 +76,28 @@ jobs:
               echo "Current directory: $(pwd)"
               echo "Chart package to be installed: $chartPackage"
               
+              # ############################################################
+              # # DEBUG STEPS
+              # 1. First verify AWS credentials are still valid
+              aws sts get-caller-identity
+
+              # 2. Check if kubeconfig file exists and has proper permissions
+              ls -la ~/.kube/config
+
+              # 3. Try to explicitly set KUBECONFIG environment variable
+              export KUBECONFIG=~/.kube/config
+
+              # 4. Update kubeconfig with more verbose output
+              aws eks update-kubeconfig --region us-east-1 --name ${{ parameters.awsEKSClusterName }} --verbose
+
+              # 5. Check kubeconfig content (make sure to mask any sensitive data in logs)
+              kubectl config view
+
+              # 6. Try a basic kubectl command to test connectivity
+              kubectl get nodes
+              # # DEBUG STEPS
+              # ############################################################
+              
               helm_upgrade_output=$(helm upgrade \
                 --namespace $(K8sNamespace) \
                 --create-namespace \
@@ -86,7 +108,7 @@ jobs:
                 --set image.repository=$(repositoryURI) \
                 --set appversion="$(Build.BuildNumber)" \
                 --kubeconfig ~/.kube/config \
-                ${{ parameters.projectName }} \
+                ${{ parameters.projectName }} --debug --v=5\
                 $chartPackage 2>&1)
               helm_upgrade_exit_code=$?
               echo "$helm_upgrade_output"
