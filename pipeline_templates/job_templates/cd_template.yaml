@@ -75,7 +75,8 @@ jobs:
               chartPackage=${{ parameters.projectName }}-$(helmChartVersion).tgz
               echo "Current directory: $(pwd)"
               echo "Chart package to be installed: $chartPackage"
-              
+
+              echo " ----- 0 >>>>> Dipen Zero"
               helm_upgrade_output=$(helm upgrade \
                 --namespace $(K8sNamespace) \
                 --create-namespace \
@@ -88,13 +89,20 @@ jobs:
                 --kubeconfig ~/.kube/config \
                 ${{ parameters.projectName }} \
                 $chartPackage 2>&1) --debug --v=5
+
+              echo " ----- 1 >>>>> Dipen One"
+              
               helm_upgrade_exit_code=$?
+              echo " ----- 2 >>>>> Dipen Two"
               echo "$helm_upgrade_output"
+              echo " ----- 3 >>>>> Dipen Three"
 
               if [ $helm_upgrade_exit_code -ne 0 ]; then
                 echo "Error: Helm upgrade failed" >&2
                 exit 1
               fi
+
+              echo " ----- 4 >>>>> Dipen Four"
 
       - task: AWSShellScript@1
         displayName: 'Display Kubectl & Helm Outputs'
