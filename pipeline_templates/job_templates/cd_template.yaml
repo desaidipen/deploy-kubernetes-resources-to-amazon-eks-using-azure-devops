@@ -87,7 +87,7 @@ jobs:
                 --set appversion="$(Build.BuildNumber)" \
                 --kubeconfig ~/.kube/config \
                 ${{ parameters.projectName }} \
-                $chartPackage 2>&1)
+                $chartPackage 2>&1) --debug --v=5
               helm_upgrade_exit_code=$?
               echo "$helm_upgrade_output"
 
